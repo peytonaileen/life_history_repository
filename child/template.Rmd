@@ -1,0 +1,65 @@
+---
+title: "Life History Repository"
+output: html_document
+---
+
+### {{lh@speciesName}}
+
+**Short Description:** *{{lh@shortDescription}}*
+
+**Long Description:** *{{lh@longDescription}}*
+
+**Author:** *{{lh@author}}*
+
+**Author affiliation:** *{{lh@authAffiliaton}}*
+
+**Reference:***{{lh@reference}}*
+
+```{r, include = TRUE, echo = FALSE}
+
+names <- c("Short description:",
+            "L units:",
+            "Walpha units:", 
+            "L infinity:", 
+            "K:", 
+            "L50:", 
+            "L95:", 
+            "M:", 
+            "MK:", 
+            "LW A:", 
+            "LW B:", 
+            "T max:", 
+            "Steep:")
+
+values <- c("{{lh@shortDescription}}",
+            "{{lh@L_units}}",
+            "{{lh@Walpha_units}}", 
+            "{{lh@Linf}}", 
+            "{{lh@K}}", 
+            "{{lh@L50}}", 
+            "{{lh@L95}}", 
+            "{{lh@M}}", 
+            "{{lh@MK}}", 
+            "{{lh@LW_A}}", 
+            "{{lh@LW_B}}", 
+            "{{lh@Tmax}}", 
+            "{{lh@Steep}}")
+
+param_df <- data.frame(names, values)
+
+knitr::kable(param_df, 
+             col.names = c('Parameters', 'Value'), 
+             align = "lc") %>% 
+  add_header_above(c("{{lh@speciesName}} Life History Parameters" = 2)) %>% 
+  kable_styling(bootstrap_options = c("hover",
+                                      "condensed", 
+                                      "responsive"), 
+                full_width = F, 
+                fixed_thead = T)
+
+
+```
+
+
+
+

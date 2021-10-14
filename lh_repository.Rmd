@@ -1,52 +1,43 @@
 ---
-title: "Life history repository"
-author: "Peyton Moore"
-date: "10/11/2021"
+title: Nature Analytics Life History Repository
 output: 
   html_document:
-    code_folding: hide
     theme: cosmo
     toc: true
-    number_sections: true
+    number_sections: false
     toc_float: 
-      collapsed: true
+      collapsed: false
       smooth_scroll: true
 runtime: shiny
 ---
+# Life History Repository {.tabset}
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
+```{r, include=FALSE}
 library(fishSimGTG)
 library(dplyr)
 library(here)
+library(kableExtra)
+
+grabber <-  lapply(
+  X = list.files("objects/"), 
+  FUN = function(X){
+    readRDS(here("objects", X))
+                   })
+
+src <- lapply(
+  X = 1:NROW(grabber), 
+  FUN = function(X) {
+    knitr::knit_expand(
+      file = here::here("child", "template.Rmd"), 
+      lh = grabber[[X]]
+    )
+  }
+)
 ```
 
+## Life Histories 
 
 
-```{r, echo = FALSE, include = FALSE}
-is(LifeHistoryExample)
+`r knitr::knit(text = unlist(src))`
 
-
-LifeHistoryExample@title
-
-
-fish <- new("LifeHistory", title = "trial", speciesName = "tuna", shortDescription = "here is a fish" )
-
-fish@title
-
-
-```
-# About
-
-some text here 
-
-# Life histories
-
-Below are life histories of fish species that have either been created by us here at Nature Analytics, or submitted by a user via our Size Limit App (insert link). 
-
-## `r LifeHistoryExample@speciesName`
-
-### `r LifeHistoryExample@shortDescription`
-
-## Species example 2
+## About 
