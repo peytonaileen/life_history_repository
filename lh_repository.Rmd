@@ -1,22 +1,21 @@
 ---
-title: Nature Analytics Life History Repository
-output: 
-  html_document:
-    theme: cosmo
+title:  Explore Life Hisories 
+author: Nature Analytics
+output:
+  prettydoc::html_pretty:
+    theme: cayman
     toc: true
-    number_sections: false
-    toc_float: 
-      collapsed: false
-      smooth_scroll: true
-runtime: shiny
+    number_sections: true
+#runtime: shiny
 ---
-# Life History Repository {.tabset}
+
 
 ```{r, include=FALSE}
 library(fishSimGTG)
 library(dplyr)
 library(here)
 library(kableExtra)
+library(prettydoc)
 
 grabber <-  lapply(
   X = list.files("objects/"), 
@@ -35,9 +34,15 @@ src <- lapply(
 )
 ```
 
-## Life Histories 
 
+# Explore Life Histories
 
 `r knitr::knit(text = unlist(src))`
 
-## About 
+
+# About
+
+
+
+
+ 

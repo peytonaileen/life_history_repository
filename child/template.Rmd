@@ -1,24 +1,24 @@
 ---
-title: "Life History Repository"
+title: Life History Repository
 output: html_document
 ---
 
+
 ### {{lh@speciesName}}
 
-**Short Description:** *{{lh@shortDescription}}*
+**Short Description:** {{lh@shortDescription}}
 
-**Long Description:** *{{lh@longDescription}}*
+**Long Description:** {{lh@longDescription}}
 
-**Author:** *{{lh@author}}*
+**Author:** {{lh@author}}
 
-**Author affiliation:** *{{lh@authAffiliaton}}*
+**Author affiliation:** {{lh@authAffiliaton}}
 
-**Reference:***{{lh@reference}}*
+**Reference:**{{lh@reference}}
 
-```{r, include = TRUE, echo = FALSE}
+```{r, include = TRUE, echo = FALSE, out.width = "90%"}
 
-names <- c("Short description:",
-            "L units:",
+names <- c("L units:",
             "Walpha units:", 
             "L infinity:", 
             "K:", 
@@ -31,8 +31,7 @@ names <- c("Short description:",
             "T max:", 
             "Steep:")
 
-values <- c("{{lh@shortDescription}}",
-            "{{lh@L_units}}",
+values <- c("{{lh@L_units}}",
             "{{lh@Walpha_units}}", 
             "{{lh@Linf}}", 
             "{{lh@K}}", 
@@ -54,7 +53,7 @@ knitr::kable(param_df,
   kable_styling(bootstrap_options = c("hover",
                                       "condensed", 
                                       "responsive"), 
-                full_width = F, 
+                full_width = T, 
                 fixed_thead = T)
 
 
