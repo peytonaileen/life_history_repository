@@ -2,10 +2,12 @@
 title:  Explore Life Hisories 
 author: Nature Analytics
 output:
-  prettydoc::html_pretty:
-    theme: cayman
+  html_document:
+    theme: cerulean
     toc: true
-    number_sections: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
 #runtime: shiny
 ---
 
@@ -16,15 +18,82 @@ library(dplyr)
 library(here)
 library(kableExtra)
 library(prettydoc)
+library(aws.s3)
+
+#Additional function
+space_infoRDS<- function() {
+  bucket <- as.character(unlist(stringr::str_split(Sys.getenv("SPACES_BUCKET"), "/", 2))[1])
+  #prefix <- as.character(paste0(as.character(unlist(stringr::str_split(Sys.getenv("SPACES_BUCKET"), "/", 2))[-1]), "/", prefix,"/"))
+
+  #Returns NULL if cannot communicate with server
+  show_condition <- function(code) {
+    tryCatch(code,
+             condition = function(c) {
+               NULL
+             }
+    )
+  }
+ 
+  space_info<-show_condition(aws.s3::get_bucket_df(bucket =  bucket,
+                                      #prefix = prefix,
+                                      region = Sys.getenv("SPACES_REGION"),
+                                      check_region = FALSE,
+                                      key = Sys.getenv("SPACES_ACCESS_KEY"),
+                                      secret = Sys.getenv("SPACES_SECRET_KEY"),
+                                      base_url = Sys.getenv("SPACES_BASE"),
+                                      max = Inf))
+ 
+  if(!is.null(space_info)){
+    space_info$Time<-stringr::str_subset(stringr::str_split(space_info$LastModified, "T", simplify=TRUE), "Z")
+    space_info$Date<-as.Date(space_info$LastModified)
+    space_info$ProjectName<-stringr::str_sub(stringr::str_subset(stringr::str_split(space_info$Key, "/", simplify=TRUE), ".rds"), end=-5L)
+  }
+ 
+  return(space_info)
+}
+
+ # READ IN FILES FROM DIGITAL OCEAN   
+space_getRDS<- function(object) {
+ 
+  object <- as.character(object)
+  bucket <- as.character(Sys.getenv("SPACES_BUCKET"))
+ 
+  #Returns NULL if cannot communicate with server
+  show_condition <- function(code) {
+    tryCatch(code,
+             condition = function(c) {
+               NULL
+             }
+    )
+  }
+  output<-show_condition(
+    aws.s3::s3readRDS(object=object,
+                      bucket=bucket,
+                      region = Sys.getenv("SPACES_REGION"),
+                      check_region = FALSE,
+                      key = Sys.getenv("SPACES_ACCESS_KEY"),
+                      secret = Sys.getenv("SPACES_SECRET_KEY"),
+                      base_url = Sys.getenv("SPACES_BASE"))
+  )
+ 
+  return(output)
+}
+
 
 grabber <-  lapply(
-  X = list.files("objects/"), 
+  X = sort(space_infoRDS()$Key), 
   FUN = function(X){
-    readRDS(here("objects", X))
+    space_getRDS(X)
                    })
 
+namesGrabber<- unlist(lapply(
+  X = 1:NROW(grabber), function(X){
+    grabber[[X]]@speciesName
+  }
+))
+
 src <- lapply(
-  X = 1:NROW(grabber), 
+  X = order(namesGrabber), 
   FUN = function(X) {
     knitr::knit_expand(
       file = here::here("child", "template.Rmd"), 
@@ -35,12 +104,13 @@ src <- lapply(
 ```
 
 
+# About
+
 # Explore Life Histories
 
 `r knitr::knit(text = unlist(src))`
 
 
-# About
 
 
 
