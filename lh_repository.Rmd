@@ -1,6 +1,5 @@
 ---
-title:  Explore Life Hisories 
-author: Nature Analytics
+title:  Explore Life Histories 
 output:
   html_document:
     theme: cerulean
