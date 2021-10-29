@@ -6,12 +6,25 @@ output:
     toc: true
     toc_float: true
     collapsed: false
+    smooth_scroll: false
     number_sections: false
 #runtime: shiny
 ---
 
 
 ```{r, include=FALSE}
+
+# library(RWordPress)
+# options(WordpressLogin = c(pamoore = 'FishIsABish2021!'),
+#         WordpressURL = 'https://natureanalytics.ca/xmlrpc.php')
+# library(knitr)
+# knit2wp('lh_repository.Rmd',
+#         title = 'Life History Repository', 
+#         action = c("newPage"),
+#         publish = TRUE)
+
+
+
 library(fishSimGTG)
 library(dplyr)
 library(here)
@@ -105,10 +118,12 @@ src <- lapply(
 
 # About
 
+This repository contains life history information for species of fish, as entered by users of the TNC Size Limit Tradeoff Tool. These life histories can be used in the tool to estimate spawning potential ratio and fishing yield projected for size limit regulations. 
+
 # Explore Life Histories
 
-`r knitr::knit(text = unlist(src))`
 
+`r knitr::knit(text = unlist(src))`
 
 
 
