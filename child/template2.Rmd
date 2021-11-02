@@ -1,0 +1,42 @@
+
+
+```{r, label="{{x}}a", echo=FALSE}
+lh<-grabber[[{{x}}]]
+```
+
+### `r lh@speciesName`
+
+**Title:** `r lh@title`
+
+**Short Description:** `r lh@shortDescription`
+
+**Long Description:** `r HTML(lh@longDescription)`
+
+**Author:** `r lh@author`
+
+**Author affiliation:** `r lh@authAffiliation`
+
+```{r, label="{{x}}b", echo=FALSE}
+   knitr::kable(
+              LH_to_dataframe(LifeHistoryObj=lh, digits=3) %>%
+                filter(across(any_of("key"), ~.x != "Beverton-Holt steepness")) %>%
+                filter(across(any_of("key"), ~.x != "Title")) %>%
+                filter(across(any_of("key"), ~.x != "Short description")) %>%
+                filter(across(any_of("key"), ~.x != "Long description")) %>%
+                filter(across(any_of("key"), ~.x != "Author")) %>%
+                filter(across(any_of("key"), ~.x != "Author affiliation")) %>%
+                filter(across(any_of("key"), ~.x != "ID")) %>%
+              filter(across(any_of("key"), ~.x != "Unfished recruitment")) %>%
+              filter(across(any_of("key"), ~.x != "Recruitment log-scale standard deviation")) %>%
+              filter(across(any_of("key"), ~.x != "Recruitment inter-annual correlation")) %>%
+              filter(across(any_of("key"), ~.x != "Protogynous hermaphrodite")) %>%
+              filter(across(any_of("key"), ~.x != "Length at which cohort is 50% male")) %>%
+              filter(across(any_of("key"), ~.x != "Length at which cohort is 95% male")),
+              col.names = c('Parameter', 'Value'),
+              align = "lc"
+            ) %>%
+              kable_styling(
+                bootstrap_options = "hover"
+              )
+```
+

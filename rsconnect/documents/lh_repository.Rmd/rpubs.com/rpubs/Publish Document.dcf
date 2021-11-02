@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/830161/3261a6a2910442928092349a85514e83
+bundleId: https://api.rpubs.com/api/v1/document/830161/3261a6a2910442928092349a85514e83
+url: http://rpubs.com/wharford/830161
+when: 1635861755.82541

@@ -227,12 +227,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -246,33 +246,53 @@ div.tocify {
 </div>
 
 
+<style type="text/css">
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1.title {
+  font-size: 3.5em;
+}
+
+
+table th {
+  font-weight: bold;
+  background-color: #2fa4e7;
+  color: #f0f6fa;
+}
+
+table tr:nth-child(odd) {
+      background-color: #f0f6fa;
+}
+
+
+</style>
 <div id="about" class="section level1">
 <h1>About</h1>
-<p>This repository contains life history information for species of fish, as entered by users of the TNC &amp; Nature Analytics Size Limit Trade-off Tool. These life histories can be used in the tool to estimate spawning potential ratio and fishing yield projected for size limit regulations.</p>
+<p>This repository contains life history information for species of fish, as entered by users of TNC Size Limit application. These life histories can be used to estimate spawning potential ratio and fishing yield-per-recruit for alternative size limit regulations.</p>
 </div>
 <div id="explore-life-histories" class="section level1">
 <h1>Explore Life Histories</h1>
-<div id="example-fish" class="section level3">
-<h3>Example fish</h3>
-<p><strong>Short Description:</strong> Simulated life history of a fish based on B-H invariants</p>
-<p><strong>Long Description:</strong></p>
+<div id="epinephelus-morio" class="section level3">
+<h3>Epinephelus morio</h3>
+<p><strong>Title:</strong></p>
+<p><strong>Short Description:</strong></p>
+<p><strong>Long Description:</strong> <br><br><br><br>Additional details:<br><br>K: Arreguín-Sanchez, F. et al. 1996 p. 202-217. In F. Arreguín-Sánchez, J.L. Munro, M.C. Balgos and D. Pauly (eds.) Biology, fisheries and culture of tropical groupers and snappers. ICLARM Conf. Proc. 48.<br><br>Lm: Freitas, M.O. et al. 2011 Sci. Mar. 75(1):135-146.<br><br>Lm / Loo: Derived quantity<br><br>Loo: Arreguín-Sanchez, F. et al. 1996 p. 202-217. In F. Arreguín-Sánchez, J.L. Munro, M.C. Balgos and D. Pauly (eds.) Biology, fisheries and culture of tropical groupers and snappers. ICLARM Conf. Proc. 48.<br><br>M: Then et al. (2015), K and Loo non-linear model<br><br>M / K: Derived quantity M / K<br><br>Temperature: Arreguín-Sanchez, F. et al. 1996 p. 202-217. In F. Arreguín-Sánchez, J.L. Munro, M.C. Balgos and D. Pauly (eds.) Biology, fisheries and culture of tropical groupers and snappers. ICLARM Conf. Proc. 48.<br><br>Tmax: Derived quantity -ln(0.01)/M<br><br>Length type: TL<br><br>Length measurement: cm</p>
 <p><strong>Author:</strong></p>
 <p><strong>Author affiliation:</strong></p>
-<p><strong>Reference:</strong></p>
-<table class="table table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<table class="table table-hover" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;" colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Example fish Life History Parameters
-</div>
+<th style="text-align:left;">
+Parameter
 </th>
-</tr>
-<tr>
-<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
-Parameters
-</th>
-<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;">
+<th style="text-align:center;">
 Value
 </th>
 </tr>
@@ -280,7 +300,23 @@ Value
 <tbody>
 <tr>
 <td style="text-align:left;">
-L units:
+Species
+</td>
+<td style="text-align:center;">
+Epinephelus morio
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Length type
+</td>
+<td style="text-align:center;">
+TL
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Length units
 </td>
 <td style="text-align:center;">
 cm
@@ -288,71 +324,55 @@ cm
 </tr>
 <tr>
 <td style="text-align:left;">
-Walpha units:
+von Bertalanffy Loo
 </td>
 <td style="text-align:center;">
-g
+80.2
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-L infinity:
+von Bertalanffy K
 </td>
 <td style="text-align:center;">
-100
+0.159
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-K:
+Length at 50% maturity
 </td>
 <td style="text-align:center;">
-0.2
+38.8
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-L50:
+Length at 95% maturity
 </td>
 <td style="text-align:center;">
-66
+39.8
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-L95:
+Natural mortality
 </td>
 <td style="text-align:center;">
-67
+0.253
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-M:
+M/K
 </td>
 <td style="text-align:center;">
-0.3
+1.592
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-MK:
-</td>
-<td style="text-align:center;">
-1.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LW A:
-</td>
-<td style="text-align:center;">
-0.01
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LW B:
+Length-weight beta
 </td>
 <td style="text-align:center;">
 3
@@ -360,256 +380,10 @@ LW B:
 </tr>
 <tr>
 <td style="text-align:left;">
-T max:
+Maximum age
 </td>
 <td style="text-align:center;">
-15
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Steep:
-</td>
-<td style="text-align:center;">
-0.99
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="naso-unicornis" class="section level3">
-<h3>Naso Unicornis</h3>
-<p><strong>Short Description:</strong> This species is commonly known as the orange spine unicornfish</p>
-<p><strong>Long Description:</strong> This fish is an herbivore. It is highly targeted in tropical reef fisheries around the world</p>
-<p><strong>Author:</strong> Peyton Moore</p>
-<p><strong>Author affiliation:</strong> UCSB</p>
-<p><strong>Reference:</strong>Harford et. al 2021</p>
-<table class="table table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;" colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Naso Unicornis Life History Parameters
-</div>
-</th>
-</tr>
-<tr>
-<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
-Parameters
-</th>
-<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;">
-Value
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-L units:
-</td>
-<td style="text-align:center;">
-cm
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Walpha units:
-</td>
-<td style="text-align:center;">
-cm
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-L infinity:
-</td>
-<td style="text-align:center;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-K:
-</td>
-<td style="text-align:center;">
-0.3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-L50:
-</td>
-<td style="text-align:center;">
-0.34
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-L95:
-</td>
-<td style="text-align:center;">
-0.6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-M:
-</td>
-<td style="text-align:center;">
-0.56
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MK:
-</td>
-<td style="text-align:center;">
-25
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LW A:
-</td>
-<td style="text-align:center;">
-4.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LW B:
-</td>
-<td style="text-align:center;">
-0.53
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-T max:
-</td>
-<td style="text-align:center;">
-76
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Steep:
-</td>
-<td style="text-align:center;">
-1.3
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="opal-eye" class="section level3">
-<h3>opal eye</h3>
-<p><strong>Short Description:</strong> this is another fish - low trophic level!</p>
-<p><strong>Long Description:</strong></p>
-<p><strong>Author:</strong></p>
-<p><strong>Author affiliation:</strong></p>
-<p><strong>Reference:</strong></p>
-<table class="table table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;" colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-opal eye Life History Parameters
-</div>
-</th>
-</tr>
-<tr>
-<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
-Parameters
-</th>
-<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;">
-Value
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-L units:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Walpha units:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-L infinity:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-K:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-L50:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-L95:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-M:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MK:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LW A:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LW B:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-T max:
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Steep:
-</td>
-<td style="text-align:center;">
+18.2
 </td>
 </tr>
 </tbody>

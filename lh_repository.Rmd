@@ -1,5 +1,5 @@
 ---
-title:  Explore Life Histories 
+title:  Life History Repository 
 output:
   html_document:
     theme: cerulean
@@ -12,7 +12,37 @@ output:
 ---
 
 
-```{r, include=FALSE}
+```{css, echo=FALSE}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1.title {
+  font-size: 3.5em;
+}
+
+
+table th {
+  font-weight: bold;
+  background-color: #2fa4e7;
+  color: #f0f6fa;
+}
+
+table tr:nth-child(odd) {
+      background-color: #f0f6fa;
+}
+
+
+```
+
+
+
+```{r, include=FALSE, echo=FALSE}
 
 # library(RWordPress)
 # options(WordpressLogin = c(pamoore = 'FishIsABish2021!'),
@@ -24,19 +54,23 @@ output:
 #         publish = TRUE)
 
 
-
 library(fishSimGTG)
 library(dplyr)
 library(here)
 library(kableExtra)
 library(prettydoc)
 library(aws.s3)
+library(tidyverse)
+library(htmltools)
 
-#Additional function
-space_infoRDS<- function() {
-  bucket <- as.character(unlist(stringr::str_split(Sys.getenv("SPACES_BUCKET"), "/", 2))[1])
-  #prefix <- as.character(paste0(as.character(unlist(stringr::str_split(Sys.getenv("SPACES_BUCKET"), "/", 2))[-1]), "/", prefix,"/"))
-
+space_info<- function(prefix = NULL, 
+                      fileExt = "rds",
+                      bucket = Sys.getenv("SPACES_BUCKET")) {
+  
+  bucket <- as.character(unlist(stringr::str_split(bucket, "/", 2))[1])
+  
+  if(!is.null(prefix)) prefix <- as.character(paste0(prefix,"/"))
+  
   #Returns NULL if cannot communicate with server
   show_condition <- function(code) {
     tryCatch(code,
@@ -45,31 +79,39 @@ space_infoRDS<- function() {
              }
     )
   }
- 
-  space_info<-show_condition(aws.s3::get_bucket_df(bucket =  bucket,
-                                      #prefix = prefix,
+  
+  space_info<-show_condition(aws.s3::get_bucket_df(
+                                      bucket =  bucket,
+                                      prefix = prefix,
                                       region = Sys.getenv("SPACES_REGION"),
                                       check_region = FALSE,
                                       key = Sys.getenv("SPACES_ACCESS_KEY"),
                                       secret = Sys.getenv("SPACES_SECRET_KEY"),
                                       base_url = Sys.getenv("SPACES_BASE"),
                                       max = Inf))
- 
+  #-----------------------
+  #Filter to only fileExt
+  #----------------------
   if(!is.null(space_info)){
-    space_info$Time<-stringr::str_subset(stringr::str_split(space_info$LastModified, "T", simplify=TRUE), "Z")
-    space_info$Date<-as.Date(space_info$LastModified)
-    space_info$ProjectName<-stringr::str_sub(stringr::str_subset(stringr::str_split(space_info$Key, "/", simplify=TRUE), ".rds"), end=-5L)
+    fileExt = paste0(".", fileExt)
+    end = -1*nchar(fileExt)-1
+    space_info<-space_info %>% 
+      filter(stringr::str_detect(Key, pattern = fileExt))  %>%
+      mutate(Time = stringr::str_subset(stringr::str_split(LastModified, "T", simplify=TRUE), "Z")) %>%
+      mutate(Date = as.Date(LastModified)) %>%
+      mutate(ProjectName = stringr::str_sub(stringr::str_subset(stringr::str_split(Key, "/", simplify=TRUE), fileExt), end=end))
+    
   }
- 
   return(space_info)
 }
 
- # READ IN FILES FROM DIGITAL OCEAN   
-space_getRDS<- function(object) {
- 
+
+space_getRDS<- function(object,
+                        bucket = Sys.getenv("SPACES_BUCKET")) {
+  
   object <- as.character(object)
-  bucket <- as.character(Sys.getenv("SPACES_BUCKET"))
- 
+  bucket <- as.character(bucket)
+  
   #Returns NULL if cannot communicate with server
   show_condition <- function(code) {
     tryCatch(code,
@@ -87,44 +129,57 @@ space_getRDS<- function(object) {
                       secret = Sys.getenv("SPACES_SECRET_KEY"),
                       base_url = Sys.getenv("SPACES_BASE"))
   )
- 
+  
   return(output)
 }
 
 
+```
+
+```{r, echo=FALSE}
+
 grabber <-  lapply(
-  X = sort(space_infoRDS()$Key), 
+  X = sort(space_info()$Key), 
   FUN = function(X){
     space_getRDS(X)
                    })
 
+runReport<-NROW(grabber) > 0
+```
+
+```{r, eval = runReport, echo = FALSE}
+
 namesGrabber<- unlist(lapply(
-  X = 1:NROW(grabber), function(X){
-    grabber[[X]]@speciesName
-  }
-))
+    X = 1:NROW(grabber), function(X){
+      grabber[[X]]@speciesName
+    }
+  ))
 
 src <- lapply(
-  X = order(namesGrabber), 
+  X = order(namesGrabber),
   FUN = function(X) {
     knitr::knit_expand(
-      file = here::here("child", "template.Rmd"), 
-      lh = grabber[[X]]
+      file = here::here("child", "template2.Rmd"),
+      x = X
     )
   }
 )
+
+#print(unlist(src))
 ```
 
 
 # About
 
-This repository contains life history information for species of fish, as entered by users of the TNC & Nature Analytics Size Limit Trade-off Tool. These life histories can be used in the tool to estimate spawning potential ratio and fishing yield projected for size limit regulations. 
+This repository contains life history information for species of fish, as entered by users of TNC Size Limit application. These life histories can be used to estimate spawning potential ratio and fishing yield-per-recruit for alternative size limit regulations. 
 
 # Explore Life Histories
 
+`r #knitr::knit(text = unlist(src))`
 
-`r knitr::knit(text = unlist(src))`
-
+`r if(runReport){
+knitr::knit(text = unlist(src))
+}`
 
 
 
